@@ -1,0 +1,35 @@
+  
+version: "3"
+
+services:
+  covid19risk:
+    container_name: covid19risk
+    environment:
+      - TZ=${TZ}
+    image: covid19risk:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.custom.headers.browserXSSFilter=true"
+      - "traefik.http.middlewares.custom.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.custom.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.custom.headers.frameDeny=true"
+      - "traefik.http.middlewares.custom.headers.sslredirect=true"
+      - "traefik.http.middlewares.custom.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.custom.headers.stsPreload=true"
+      - "traefik.http.middlewares.custom.headers.stsSeconds=315360000"
+      - "traefik.http.routers.covid19risk.entrypoints=websecure"
+      - "traefik.http.routers.covid19risk.rule=Host(`covid19risk.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.covid19risk.tls.certresolver=letsencrypt"
+    networks:
+      - traefik_proxy
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+
+volumes:
+  data:
+
+networks:
+  traefik_proxy:
+    external: true
