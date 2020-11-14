@@ -111,7 +111,7 @@ COPY id_ed25519.pub /root/.ssh/id_rsa.pub
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts
 RUN git config --global user.email "sonofborge@protonmail.com"
 RUN git config --global user.name "sonofborge"
-RUN git clone git@github.com:sonofborge/covid19-event-risk-planner.git /root/repo
+RUN git clone git@github.com:sonofborge/covid19-event-risk-planner.git /root/repo && git checkout sonofborge
 
 COPY COVID19-Event-Risk-Planner /srv/shiny-server
 

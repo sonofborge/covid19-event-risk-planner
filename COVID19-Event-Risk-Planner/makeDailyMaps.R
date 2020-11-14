@@ -16,7 +16,7 @@ library(withr)
 # Sys.setenv(PATH = with_path('/projects/covid19/bin', Sys.getenv("PATH")))
 
 
-get_token()
+# get_token()
 
 args <- commandArgs(trailingOnly = TRUE)
 current_time <- args[1]
@@ -180,7 +180,7 @@ for (asc_bias in asc_bias_list) {
       map$dependencies[[1]]$src[1] <- "/srv/shiny-server/map_data/"
       print("Map to png")
       mapshot(map, file = file.path("/srv/shiny-server/daily_risk_map", current_time, paste0("asc_5_size_", size, ".png")))
-      post_tweet(status = paste0("County-level risk estimate update for ", ymd_hms(current_time), ".  Estimated risk that at least 1 person is #COVID19 positive for events or other areas where ", size, " individuals are in close contact [Assuming 5:1 ascertainment bias]"), media = file.path("daily_risk_map", current_time, paste0("asc_5_size_", size, ".png")))
+      # post_tweet(status = paste0("County-level risk estimate update for ", ymd_hms(current_time), ".  Estimated risk that at least 1 person is #COVID19 positive for events or other areas where ", size, " individuals are in close contact [Assuming 5:1 ascertainment bias]"), media = file.path("daily_risk_map", current_time, paste0("asc_5_size_", size, ".png")))
       # print(paste0("County-level risk estimate update for ", ymd_hms(current_time), ".  Estimated risk that at least 1 person is #COVID19 positive for events or other areas where " ,size,  " individuals are in close contact. [Assuming 10:1 ascertainment bias]"))
     }
   }

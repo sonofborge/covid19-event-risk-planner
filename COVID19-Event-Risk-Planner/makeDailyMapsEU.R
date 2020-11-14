@@ -6,7 +6,7 @@
 #####################################################################
 source("libraries.R")
 
-get_token()
+# get_token()
 
 args <- commandArgs(trailingOnly = TRUE)
 current_time <- args[1]

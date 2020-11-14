@@ -7,7 +7,7 @@
 source("libraries.R")
 
 
-get_token()
+# get_token()
 
 args = commandArgs(trailingOnly=TRUE)
 current_time <- args[1]
@@ -114,5 +114,5 @@ map <- leaflet() %>%
             paste0(legendlabs)
         }) 
 mapshot(map, file = file.path(getwd(), "daily_risk_map_france", current_time, paste0(current_time,"_", asc_bias, "_", size, ".png")))
-post_tweet(status = paste0("France department-level risk estimate update for ",  now("Europe/Paris"), " ", tz("Europe/Paris"), ".  Estimated risk that at least 1 person is #COVID19 positive for events or other areas where ", size, " individuals are in close contact [Assuming 5:1 ascertainment bias]"),
+# post_tweet(status = paste0("France department-level risk estimate update for ",  now("Europe/Paris"), " ", tz("Europe/Paris"), ".  Estimated risk that at least 1 person is #COVID19 positive for events or other areas where ", size, " individuals are in close contact [Assuming 5:1 ascertainment bias]"),
  media = file.path("daily_risk_map_france", current_time, paste0(current_time,"_", asc_bias, "_", size, ".png")))
