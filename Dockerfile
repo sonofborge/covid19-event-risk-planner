@@ -2,7 +2,6 @@ FROM openanalytics/r-base
 
 MAINTAINER Aroon Chande "achande@ihrc.com, mail@aroonchande.com"
 
-
 RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get update && apt-get install -y \
@@ -91,10 +90,10 @@ COPY bin/phantomjs /usr/bin/
 RUN R -e 'remotes::install_github("ar0ch/sever")'
 # copy the app to the image
 COPY Rprofile.site /usr/lib/R/etc/
-COPY .rtweet_token.rds /root/.rtweet_token.rds
-COPY Renviron /root/.Renviron
+# COPY .rtweet_token.rds /root/.rtweet_token.rds
+# COPY Renviron /root/.Renviron
 
-ENV TZ=America/New_York
+ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN rm -f /shiny-server-1.5.14.948-amd64.deb
 
@@ -107,13 +106,12 @@ RUN sudo echo -e "1 17 * * * /srv/shiny-server/makeDailyMaps.sh 1 \n\
 " > /var/spool/cron/crontabs/root
 
 RUN mkdir /root/.ssh
-COPY docker_github /root/.ssh/id_rsa
-COPY docker_github.pub /root/.ssh/id_rsa.pub
+COPY id_ed25519 /root/.ssh/id_rsa
+COPY id_ed25519.pub /root/.ssh/id_rsa.pub
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts
-RUN git config --global user.email "c19r@atc.io"
-RUN git config --global user.name "c19r-bot"
+RUN git config --global user.email "sonofborge@protonmail.com"
+RUN git config --global user.name "sonofborge"
 RUN git clone git@github.com:appliedbinf/covid19-event-risk-planner.git /root/repo
-
 
 COPY COVID19-Event-Risk-Planner /srv/shiny-server
 
