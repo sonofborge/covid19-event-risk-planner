@@ -1,8 +1,57 @@
 # COVID19 risk planner R-Shiny application
 
-
-
 ## Installation
+
+### Docker and Compose
+
+1.  Pull down the repo (specifically, the `sonofborge` branch) and change into the project directory.
+
+    ```sh
+    git clone -b sonofborge https://github.com/sonofborge/covid19-event-risk-planner.git && cd covid19-event-risk-planner
+    ```
+
+1.  Create and modify `.env` for your needs.
+
+    ```sh
+    cp .env.example .env
+    ```
+
+1.  Build the Docker image (this will take a while, so grab some :coffee:).
+
+    ```sh
+    docker build -t covid19risk .
+    ```
+
+1.  Run Docker Compose.
+
+    ```sh
+    docker-compose up -d
+    ```
+
+#### First Time Running
+
+If this is the first time running the application,
+you will need to run several scripts inside the container.
+
+1.  Hop inside the newly-created container...
+
+    ```sh
+    docker exec -it covid19risk bash
+    ```
+
+1.  And run the following scripts.
+
+    ```sh
+    /srv/shiny-server/makeDailyMaps.sh 0 
+    /srv/shiny-server/makeDailyPlots.sh
+    /srv/shiny-server/update_current.sh
+    /srv/shiny-server/update_daily.sh
+    ```
+
+1.  Now,
+    the application should be fully provisioned and running.
+
+### Locally
 
 `COVID19 risk planner R-Shiny application` is an R-Shiny application that requires R 3.4+, shinyserver, and several R packages.  Optionally, you can deploy behind a webserver (Apache or NGINX) to act as the reverse proxy and handle SSL termination.
 
